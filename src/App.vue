@@ -5,7 +5,7 @@
       <router-link to="/about">About</router-link> |
       <router-link to="/login">Login</router-link> |
       <router-link to="/login2">Login2</router-link> |
-      <router-link to="/cdh">CDH</router-link>
+      <router-link to="/timeRegister">CDH</router-link>
     </div>
     <v-content>
       <router-view/>

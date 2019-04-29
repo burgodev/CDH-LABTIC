@@ -97,7 +97,7 @@
 
 
 
-  /*.cdh-color {*/
+  /*.timeRegister-color {*/
     /*background-image: radial-gradient(#444e54, #0b0b0b)*/
   /*}*/
 

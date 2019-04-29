@@ -90,7 +90,7 @@
 
         <v-data-table
           :headers="headers"
-          :items="cdh"
+          :items="timeRegister"
           :search="search"
           class="elevation-1"
 
@@ -129,6 +129,7 @@
 
 <script>
   import JustifyAbsence from "../components/JustifyAbsence";
+  import {AxiosInstance as axios} from "axios";
 
   export default {
     name: "Cdh",
@@ -149,14 +150,24 @@
 
 
       ],
-      cdh: [],
+      timeRegister: [],
 
     }),
 
 
     created() {
       this.initialize()
+
+      axios.get(`http://localhost:8080/CdhBurgo`)
+        .then(response => {
+          this.timeRegister = response.data
+        })
+        .catch(e => {
+          this.errors.push(e)
+        })
     },
+
+
     computed: {
       sessionButton(){
          if(this.teste) return'primary';
@@ -170,7 +181,7 @@
 
     methods: {
       initialize() {
-        this.cdh = [
+        this.timeRegister = [
           {
             day: 1,
             entry: "14:00",

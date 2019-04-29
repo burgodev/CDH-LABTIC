@@ -44,7 +44,7 @@
     </v-toolbar>
 
 
-    <v-content class="cdh-color" >
+    <v-content class="timeRegister-color" >
       <router-view/>
     </v-content>
 
@@ -142,25 +142,25 @@
   }
 
   /*!*333333*!*/
-  .cdh-color {
+  .timeRegister-color {
     background-image: radial-gradient(#535353, #2f2f2f);
   }
 
-  /*.cdh-color {*/
+  /*.timeRegister-color {*/
   /*background-image: url("./assets/teste.jpg")*/
   /*}*/
 
-  .cdh-color2 {
+  .timeRegister-color2 {
     background-image: radial-gradient(#763a00, #1f0f00);
   }
 
-  .cdh-color3 {
+  .timeRegister-color3 {
     /*background-image: radial-gradient(#ce7000, #7c123a);*/
 
 
   }
 
-  .cdh-color55 {
+  .timeRegister-color55 {
     background-image: radial-gradient(#75706e, #313030);
 
 
