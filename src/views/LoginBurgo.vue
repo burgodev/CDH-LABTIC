@@ -1,52 +1,41 @@
 <template>
-  <v-container fluid fill-height >
-    <v-layout align-center justify-center >
+  <v-container fluid fill-height>
+    <v-layout align-center justify-center>
 
       <v-flex xs12 sm8 md4>
         <v-card-text>
 
           <v-text-field dark
                         ref="name"
-                        v-model="name"
-                        :rules="[() => !!name || 'This field is required']"
-                        :error-messages="errorMessages"
-                        color="red"
+                        v-model="user.login"
+                        color="primary"
                         placeholder="Username"
                         required
           ></v-text-field>
 
           <v-text-field dark
-                        v-model="password"
+                        v-model="user.password"
                         :append-icon="show1 ? 'visibility' : 'visibility_off'"
-                        :rules="[rules.required, rules.min]"
                         :type="show1 ? 'text' : 'password'"
                         placeholder="Password"
                         name="input-10-1"
-                        hint="At least 8 characters"
-                        color="error"
+                        color="primary"
                         counter
                         @click:append="show1 = !show1"
           ></v-text-field>
         </v-card-text>
 
         <v-spacer></v-spacer>
-        <v-tooltip
-          v-if="formHasErrors"
-          left
-        >
-          <template v-slot:activator="{ on }">
-            <v-btn
-              icon
-              class="my-0"
-              @click="resetForm"
-              v-on="on"
-            >
-              <v-icon>refresh</v-icon>
-            </v-btn>
-          </template>
-          <span>Refresh form</span>
-        </v-tooltip>
-
+        <template v-slot:activator="{ on }">
+          <v-btn
+            icon
+            class="my-0"
+            @click="resetForm"
+            v-on="on"
+          >
+            <v-icon>refresh</v-icon>
+          </v-btn>
+        </template>
 
 
         <v-btn class="custom-btn" @click="login" outline round small text>Login</v-btn>
@@ -59,6 +48,12 @@
 
 <script lang="ts">
   import {Component, Vue} from 'vue-property-decorator';
+  import axios from 'axios';
+  import {
+    OpenAPI,
+  } from '../requests';
+
+  import '../App';
 
   @Component({
     components: {},
@@ -68,19 +63,50 @@
     data() {
       return {
         show1: false,
-        password: 'Password',
-        rules: {
-          required: (value: any) => !!value || 'Required.',
-          min: (v: any) => v.length >= 8 || 'Min 8 characters',
-          emailMatch: () => ('The email and password you entered don\'t match')
-        }
+        user: {
+          login: 'admin@admin.com',
+          password: 'admin',
+        },
       }
     },
 
     methods: {
 
-      login() {
-        this.$router.replace('/CdhBurgo');
+      async login() {
+        // try {
+        // let ret = await axios.post('http://localhost:1337/api/login', this.user);
+        //
+        // if (ret.data.success) {
+        //   localStorage.setItem('authenticationKey', ret.data.data.authenticationKey);
+        //   localStorage.setItem('accessKey', ret.data.data.accessKey);
+        //   localStorage.setItem('accessKey', ret.data.data.id);
+
+
+
+        console.log('1-chegou no click login')
+        console.log('login e senha', this.user);
+
+
+        console.log('teste1')
+        let ret = await OpenAPI.login({login: this.user.login, password: this.user.password});
+
+        // console.log('initialize', ret);
+        //
+        //
+        // console.log(this.$store)
+        //
+        // this.$router.replace('/cdhBurgo')
+        //
+        //   } else
+        //     alert(ret.data.data.description);
+        //
+        //   // console.log('retornou isso', ret);
+        //
+        //
+        // } catch (e) {
+        //   console.error('erro no login', e);
+        // }
+
 
       },
     }
@@ -92,13 +118,12 @@
 <style>
 
   /*.custom-btn::before {*/
-    /*color: transparent*/
+  /*color: transparent*/
   /*}*/
 
 
-
   /*.timeRegister-color {*/
-    /*background-image: radial-gradient(#444e54, #0b0b0b)*/
+  /*background-image: radial-gradient(#444e54, #0b0b0b)*/
   /*}*/
 
 

@@ -18,29 +18,24 @@
 
               <v-select
                 v-model="select"
-                :items="items"
-                :rules="[v => !!v || 'User is required']"
                 label="Usuário"
                 required
               ></v-select>
 
               <v-text-field
                 v-model="currentPassword"
-                :rules="currentPassword"
                 label="Senha Atual"
                 required
               ></v-text-field>
 
               <v-text-field
                 v-model="newPassword"
-                :rules="newPassword"
                 label="Nova Senha"
                 required
               ></v-text-field>
 
               <v-text-field
                 v-model="confirmNewPassword"
-                :rules="confirmNewPassword"
                 label="Confirmar Nova Senha"
                 required
               ></v-text-field>
@@ -52,7 +47,6 @@
             <v-spacer></v-spacer>
             <v-btn
               :disabled="!valid"
-              @click="validate"
               round
               small
               outline
@@ -98,21 +92,10 @@
           'User 4'
         ],
         currentPassword: '',
-        currentPasswordRules: [
-          // v => !!v || 'Hours is required',
-          // v => (v && v.length <= 2) || 'Hours must be less than 2 characters'
-        ],
         newPassword: '',
-        newPasswordRules: [
-          // v => !!v || 'Justification is required',
-          // v => (v && v.length >= 10) || 'Justifiaction must be more than 10 characters',
-        ],
 
-        confirmeNewPassword: '',
-        confirmNewPasswordRules: [
-          // v => !!v || 'Justification is required',
-          // v => (v && v.length >= 10) || 'Justifiaction must be more than 10 characters',
-        ],
+        confirmNewPassword: '',
+
         select: null,
       }
     },

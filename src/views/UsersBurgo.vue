@@ -21,8 +21,6 @@
           </v-flex>
 
 
-          <spacer></spacer>
-
           <v-layout justify-end>
             <v-divider
               class="mx-4"
@@ -68,16 +66,24 @@
                       <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm6 md6>
-                      <v-text-field v-model="editedItem.exitDate" label="Data de Saída"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md6>
                       <v-text-field v-model="editedItem.entryDate" label="Data de Entrada"></v-text-field>
                     </v-flex>
+                    <v-flex xs12 sm6 md6>
+                      <v-text-field v-model="editedItem.exitDate" label="Data de Saída"></v-text-field>
+                    </v-flex>
+
                     <v-flex xs12 sm6 md6>
                       <v-text-field v-model="editedItem.cpf" label="CPF"></v-text-field>
                     </v-flex>
                     <v-flex xs12 sm6 md6>
                       <v-text-field v-model="editedItem.birthday" label="Data de Nascimento"></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs12 sm6 md6>
+                      <v-text-field v-model="editedItem.password" label="Senha"></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6 md6>
+                      <v-text-field v-model="editedItem.password" label="Repita a senha"></v-text-field>
                     </v-flex>
 
                     <v-flex xs12 sm6 md4>
@@ -86,12 +92,13 @@
                   </v-layout>
                 </v-container>
 
-                <v-card-actions>
+                <v-layout wrap>
                   <v-btn @click="showChangePassword" round outline small text class="custom-btn">Alterar Senha</v-btn>
-                  <v-spacer></v-spacer>
-                  <v-btn class="custom-btn" round outline small @click="close">Cancelar</v-btn>
-                  <v-btn class="custom-btn" round outline small @click="save">Salvar</v-btn>
-                </v-card-actions>
+                  <v-layout justify-end>
+                    <v-btn justify-end align-end class="custom-btn" round outline small @click="close">Cancelar</v-btn>
+                    <v-btn justify-end align-end class="custom-btn" round outline small @click="save">Salvar</v-btn>
+                  </v-layout>
+                </v-layout>
               </v-card-text>
             </v-card>
           </v-dialog>
@@ -104,6 +111,8 @@
           :items="users"
           :search="search"
           class="elevation-1"
+
+
         >
           <template v-slot:items="props">
             <td class="text-xs-left">{{ props.item.name }}</td>
@@ -153,9 +162,13 @@
 <script>
   import JustifyAbsence from "../components/JustifyAbsence";
   import ChangePassword from "../components/ChangePassword";
+  import axios from 'axios';
+  import {
+    AdminAPI,
+  } from '../requests';
 
   export default {
-    name: "UsersBurgo",
+    name: "Users",
     components: {ChangePassword, JustifyAbsence},
 
     data: () => ({
@@ -181,23 +194,27 @@
       users: [],
       editedIndex: -1,
       editedItem: {
-        name: '',
-        surname: '',
-        email: '',
-        cpf: '',
-        entryDate: '',
-        exitDate: '',
-        password: '',
+        name: 'Filipe',
+        surname: 'Burgoteste',
+        email: 'filipeburgoteste@gmail.com',
+        cpf: '000000000',
+        entryDate: '00000000',
+        exitDate: '00000000',
+        password: 'burgo',
+        birthday: '00000000',
+        id: '312321312',
         isAdm: false
       },
       defaultItem: {
-        name: '',
-        surname: '',
-        email: '',
-        cpf: '',
-        entryDate: '',
-        exitDate: '',
-        password: '',
+        name: 'Filipe',
+        surname: 'Burgoteste',
+        email: 'filipeburgoteste',
+        cpf: '000000000',
+        entryDate: '00000000',
+        exitDate: '00000000',
+        password: 'burgo',
+        birthday: '00000000',
+        id: '2132132',
         isAdm: false
       }
     }),
@@ -214,78 +231,25 @@
       }
     },
 
-    created() {
+    mounted() {
       this.initialize()
+
     },
 
     methods: {
-      initialize() {
-        this.users = [
-          {
-            name: 'User1',
-            surname: 'user',
-            email: 'user@gmail.com',
-            cpf: '000-000-000-00',
-            entryDate: '11/06/2018',
-            exitDate: '11/06/2019'
-          },
 
-          {
-            name: 'User',
-            surname: 'user',
-            email: 'user@gmail.com',
-            cpf: '000-000-000-00',
-            entryDate: '11/06/2018',
-            exitDate: '11/06/2019'
-          },
+      async initialize() {
 
-          {
-            name: 'User',
-            surname: 'user',
-            email: 'user@gmail.com',
-            cpf: '000-000-000-00',
-            entryDate: '11/06/2018',
-            exitDate: '11/06/2019'
-          },
+        let ret = await AdminAPI.readAllUsers();
+        console.log('initialize', ret);
 
-          {
-            name: 'User',
-            surname: 'user',
-            email: 'user@gmail.com',
-            cpf: '000-000-000-00',
-            entryDate: '11/06/2018',
-            exitDate: '11/06/2019'
-          },
+        // TESTE PARA O DELETE USER
+        // localStorage.setItem('userId', ret.data[0].id);
+        // console.log(ret.data[0].id);
 
-          {
-            name: 'User',
-            surname: 'user',
-            email: 'user@gmail.com',
-            cpf: '000-000-000-00',
-            entryDate: '11/06/2018',
-            exitDate: '11/06/2019'
-          },
+        //corrigir o push
+        this.users.push(ret.data[0])
 
-          {
-            name: 'User',
-            surname: 'user',
-            email: 'user@gmail.com',
-            cpf: '000-000-000-00',
-            entryDate: '11/06/2018',
-            exitDate: '11/06/2019'
-          },
-
-          {
-            name: 'User',
-            surname: 'user',
-            email: 'user@gmail.com',
-            cpf: '000-000-000-00',
-            entryDate: '11/06/2018',
-            exitDate: '11/06/2019'
-          },
-
-
-        ]
       },
 
       editItem(item) {
@@ -294,9 +258,19 @@
         this.dialog = true
       },
 
-      deleteItem(item) {
-        const index = this.users.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.users.splice(index, 1)
+      async deleteItem(item) {
+        const index = this.users.indexOf(item);
+        confirm('Are you sure you want to delete this item?') && this.users.splice(index, 1);
+
+
+        //  NÃO TA ROLANTE AINDA
+        //
+        // let userId = await localStorage.getItem('accessKey');
+        // let ret = await AdminAPI.deleteUser(userId);
+        //
+        //
+        // console.log(userId);
+        // console.log(ret);
       },
 
       close() {
@@ -307,19 +281,27 @@
         }, 300)
       },
 
-      save() {
+      async save() {
         if (this.editedIndex > -1) {
           Object.assign(this.users[this.editedIndex], this.editedItem)
+          // axios.put('https://localhost:1337/api/' + this.editedItem._id, this.editedItem)
         } else {
-          this.users.push(this.editedItem)
+
+
+          let ret = await AdminAPI.createUser(this.editedItem);
+
+          console.log('initialize', ret);
+
         }
+
+
         this.close()
       },
 
 
       showChangePassword() {
-        this.$refs.changePassword.open({})
-        this.close()
+        this.$refs.changePassword.open({});
+        this.close();
       }
     },
   }

@@ -18,7 +18,6 @@
 
               <v-select
                 v-model="select"
-                :items="items"
                 :rules="[v => !!v || 'Item is required']"
                 label="Usuário"
                 required
@@ -45,7 +44,6 @@
             <v-spacer></v-spacer>
             <v-btn
               :disabled="!valid"
-              @click="validate"
               round
               outline
               small

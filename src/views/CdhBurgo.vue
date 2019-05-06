@@ -15,8 +15,8 @@
 
           <v-flex xs6 sm6 md4 d-flex>
             <v-select v-if="testOsv"
-              :items="items"
-              label="User"
+                      :items="items"
+                      label="User"
             ></v-select>
             <h1 v-else> eu sou um usuario logado</h1>
           </v-flex>
@@ -129,6 +129,9 @@
 
 <script>
   import JustifyAbsence from "../components/JustifyAbsence";
+  import {
+    AdminAPI,
+  } from '../requests';
   import {AxiosInstance as axios} from "axios";
 
   export default {
@@ -151,90 +154,88 @@
 
       ],
       timeRegister: [],
+      items: []
 
     }),
 
 
-    created() {
+    mounted() {
       this.initialize()
 
-      axios.get(`http://localhost:8080/CdhBurgo`)
-        .then(response => {
-          this.timeRegister = response.data
-        })
-        .catch(e => {
-          this.errors.push(e)
-        })
     },
 
 
     computed: {
       sessionButton(){
-         if(this.teste) return'primary';
+        if(this.teste) return'primary';
       },
 
-        formTitle() {
-          return this.editedIndex === -1 ? 'Novo Usuário' : 'Editar Usuário'
-        }
+      formTitle() {
+        return this.editedIndex === -1 ? 'Novo Usuário' : 'Editar Usuário'
+      }
 
     },
 
     methods: {
-      initialize() {
-        this.timeRegister = [
-          {
-            day: 1,
-            entry: "14:00",
-            exit: "18:00",
-            timeWorked: 4,
-
-          },
-
-          {
-            day: 2,
-            entry: "14:00",
-            exit: "18:00",
-            timeWorked: 4,
-          },
-
-          {
-            day: 3,
-            entry: "14:00",
-            exit: "18:00",
-            timeWorked: 4,
-          },
-
-          {
-            day: 4,
-            entry: "14:00",
-            exit: "18:00",
-            timeWorked: 4,
-          },
-
-          {
-            day: 5,
-            entry: "14:00",
-            exit: "18:00",
-            timeWorked: 4,
-          },
-
-          {
-            day: 6,
-            entry: "14:00",
-            exit: "18:00",
-            timeWorked: 4,
-          },
+      async initialize() {
 
 
-          {
-            day: 6,
-            entry: "14:00",
-            exit: "18:00",
-            timeWorked: 4,
-          },
+        // let ret = await AdminAPI.cdhConsult()
+
+        // this.timeRegister = [
+        //   {
+        //     day: 1,
+        //     entry: "14:00",
+        //     exit: "18:00",
+        //     timeWorked: 4,
+        //
+        //   },
+        //
+        //   {
+        //     day: 2,
+        //     entry: "14:00",
+        //     exit: "18:00",
+        //     timeWorked: 4,
+        //   },
+        //
+        //   {
+        //     day: 3,
+        //     entry: "14:00",
+        //     exit: "18:00",
+        //     timeWorked: 4,
+        //   },
+        //
+        //   {
+        //     day: 4,
+        //     entry: "14:00",
+        //     exit: "18:00",
+        //     timeWorked: 4,
+        //   },
+        //
+        //   {
+        //     day: 5,
+        //     entry: "14:00",
+        //     exit: "18:00",
+        //     timeWorked: 4,
+        //   },
+        //
+        //   {
+        //     day: 6,
+        //     entry: "14:00",
+        //     exit: "18:00",
+        //     timeWorked: 4,
+        //   },
+        //
+        //
+        //   {
+        //     day: 6,
+        //     entry: "14:00",
+        //     exit: "18:00",
+        //     timeWorked: 4,
+        //   },
 
 
-        ]
+        // ]
       },
 
 

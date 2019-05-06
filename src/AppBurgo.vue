@@ -2,8 +2,8 @@
   <v-app id="app2" dark>
 
     <v-toolbar app fixed clipped-left>
-      <v-btn v-on:click="" round small text class="custom-btn"></v-btn>
-      <v-btn v-on:click="" round small text class="custom-btn"></v-btn>
+      <v-btn round small text class="custom-btn"></v-btn>
+      <v-btn round small text class="custom-btn"></v-btn>
 
       <v-spacer/>
       <v-toolbar-title class="white--text">Controle de Horário</v-toolbar-title>
